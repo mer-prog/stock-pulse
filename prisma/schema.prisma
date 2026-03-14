@@ -32,3 +32,37 @@ model Session {
   refreshToken        String?
   refreshTokenExpires DateTime?
 }
+
+model InventorySnapshot {
+  id              String   @id @default(cuid())
+  shop            String
+  productId       String
+  variantId       String
+  inventoryItemId String
+  quantity        Int
+  snapshotDate    DateTime @default(now())
+
+  @@index([shop, productId, snapshotDate])
+}
+
+model AlertConfig {
+  id              String   @id @default(cuid())
+  shop            String
+  productId       String?
+  threshold       Int      @default(10)
+  alertOnZero     Boolean  @default(true)
+  slackWebhookUrl String?
+  isActive        Boolean  @default(true)
+
+  @@unique([shop, productId])
+}
+
+model AlertLog {
+  id        String   @id @default(cuid())
+  shop      String
+  productId String
+  variantId String
+  quantity  Int
+  threshold Int
+  sentAt    DateTime @default(now())
+}
