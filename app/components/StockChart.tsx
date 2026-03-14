@@ -46,8 +46,8 @@ export function StockChart({
                 />
                 <YAxis tick={{ fontSize: 12 }} />
                 <Tooltip
-                  formatter={(value: number) => [
-                    value.toLocaleString(),
+                  formatter={(value) => [
+                    Number(value).toLocaleString(),
                     "在庫数",
                   ]}
                 />

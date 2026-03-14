@@ -65,11 +65,11 @@ export async function syncAllInventory(
   const now = new Date();
 
   while (hasNextPage) {
-    const response = await admin.graphql(INVENTORY_ITEMS_QUERY, {
+    const response: Response = await admin.graphql(INVENTORY_ITEMS_QUERY, {
       variables: { first: 50, after: cursor },
     });
 
-    const data = await response.json();
+    const data: { data?: { inventoryItems?: { edges: InventoryItemEdge[]; pageInfo: { hasNextPage: boolean; endCursor: string } } } } = await response.json();
     const inventoryItems = data.data?.inventoryItems;
     if (!inventoryItems) break;
 

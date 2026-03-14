@@ -26,7 +26,7 @@ export function AlertConfigForm({
   config: AlertConfigData;
   productId?: string;
 }) {
-  const fetcher = useFetcher();
+  const fetcher = useFetcher<{ success: boolean }>();
   const [threshold, setThreshold] = useState(String(config.threshold));
   const [alertOnZero, setAlertOnZero] = useState(config.alertOnZero);
   const [slackWebhookUrl, setSlackWebhookUrl] = useState(
