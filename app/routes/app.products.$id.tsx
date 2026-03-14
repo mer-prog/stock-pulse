@@ -7,6 +7,7 @@ import { authenticate } from "../shopify.server";
 import db from "../db.server";
 import { getInventoryHistory } from "../services/inventory-sync.server";
 import { StockChart } from "../components/StockChart";
+import { useTranslation } from "../i18n/i18nContext";
 
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
   const { session } = await authenticate.admin(request);
@@ -58,10 +59,11 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 export default function ProductDetail() {
   const { productId, variants, history, threshold } =
     useLoaderData<typeof loader>();
+  const { t } = useTranslation();
 
   return (
     <Page
-      title={`商品詳細: ${productId}`}
+      title={t("productDetail.title", { id: productId ?? "" })}
       backAction={{ url: "/app" }}
     >
       <BlockStack gap="500">
@@ -69,12 +71,15 @@ export default function ProductDetail() {
           <Layout.Section>
             <LegacyCard>
               <IndexTable
-                resourceName={{ singular: "バリアント", plural: "バリアント" }}
+                resourceName={{
+                  singular: t("productDetail.variantResourceSingular"),
+                  plural: t("productDetail.variantResourcePlural"),
+                }}
                 itemCount={variants.length}
                 headings={[
-                  { title: "バリアントID" },
-                  { title: "在庫アイテムID" },
-                  { title: "在庫数" },
+                  { title: t("productDetail.headingVariantId") },
+                  { title: t("productDetail.headingInventoryItemId") },
+                  { title: t("productDetail.headingQuantity") },
                 ]}
                 selectable={false}
               >
@@ -116,7 +121,7 @@ export default function ProductDetail() {
           <Layout.Section>
             <StockChart
               data={history}
-              title={`在庫推移: 商品 ${productId}`}
+              title={t("productDetail.stockChartTitle", { id: productId ?? "" })}
             />
           </Layout.Section>
         </Layout>

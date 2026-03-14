@@ -6,6 +6,7 @@ import { Page, Layout, BlockStack } from "@shopify/polaris";
 import { authenticate } from "../shopify.server";
 import db from "../db.server";
 import { AlertConfigForm } from "../components/AlertConfigForm";
+import { useTranslation } from "../i18n/i18nContext";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { session } = await authenticate.admin(request);
@@ -80,9 +81,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export default function Alerts() {
   const { defaultConfig, productConfigs } = useLoaderData<typeof loader>();
+  const { t } = useTranslation();
 
   return (
-    <Page title="アラート設定" backAction={{ url: "/app" }}>
+    <Page title={t("alerts.pageTitle")} backAction={{ url: "/app" }}>
       <BlockStack gap="500">
         <Layout>
           <Layout.Section>

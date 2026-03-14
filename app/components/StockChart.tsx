@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { LegacyCard, Text, BlockStack } from "@shopify/polaris";
+import { useTranslation } from "../i18n/i18nContext";
 
 interface ChartData {
   date: string;
@@ -16,20 +17,23 @@ interface ChartData {
 
 export function StockChart({
   data,
-  title = "在庫推移（直近30日）",
+  title,
 }: {
   data: ChartData[];
   title?: string;
 }) {
+  const { t } = useTranslation();
+  const displayTitle = title ?? t("stockChart.defaultTitle");
+
   return (
     <LegacyCard sectioned>
       <BlockStack gap="400">
         <Text as="h2" variant="headingMd">
-          {title}
+          {displayTitle}
         </Text>
         {data.length === 0 ? (
           <Text as="p" tone="subdued">
-            データがありません。在庫を同期してください。
+            {t("stockChart.noData")}
           </Text>
         ) : (
           <div style={{ width: "100%", height: 300 }}>
@@ -48,7 +52,7 @@ export function StockChart({
                 <Tooltip
                   formatter={(value) => [
                     Number(value).toLocaleString(),
-                    "在庫数",
+                    t("stockChart.tooltipLabel"),
                   ]}
                 />
                 <Line

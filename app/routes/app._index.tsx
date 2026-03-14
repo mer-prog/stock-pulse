@@ -1,7 +1,7 @@
 import type { LoaderFunctionArgs, ActionFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData, useFetcher } from "@remix-run/react";
-import { Page, Layout, BlockStack, Button, Banner } from "@shopify/polaris";
+import { Page, Layout, BlockStack, Button, Banner, InlineStack } from "@shopify/polaris";
 
 import { authenticate } from "../shopify.server";
 import {
@@ -13,6 +13,8 @@ import {
 import { InventoryDashboard } from "../components/InventoryDashboard";
 import { StockChart } from "../components/StockChart";
 import { ProductStockTable } from "../components/ProductStockTable";
+import { LanguageToggle } from "../components/LanguageToggle";
+import { useTranslation } from "../i18n/i18nContext";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { session } = await authenticate.admin(request);
@@ -48,22 +50,28 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 export default function Dashboard() {
   const { summary, history, lowStockItems } = useLoaderData<typeof loader>();
   const fetcher = useFetcher<typeof action>();
+  const { t } = useTranslation();
 
   const isSyncing = fetcher.state !== "idle";
 
   return (
-    <Page title="StockPulse ダッシュボード">
+    <Page title={t("dashboard.title")}>
       <BlockStack gap="500">
         <Layout>
           <Layout.Section>
-            <fetcher.Form method="post">
-              <Button submit loading={isSyncing} variant="primary">
-                在庫を同期
-              </Button>
-            </fetcher.Form>
+            <InlineStack align="space-between">
+              <fetcher.Form method="post">
+                <Button submit loading={isSyncing} variant="primary">
+                  {t("dashboard.syncButton")}
+                </Button>
+              </fetcher.Form>
+              <LanguageToggle />
+            </InlineStack>
             {fetcher.data?.success && (
               <Banner tone="success">
-                {fetcher.data.syncedCount}件の在庫データを同期しました。
+                {t("dashboard.syncSuccess", {
+                  count: fetcher.data.syncedCount,
+                })}
               </Banner>
             )}
           </Layout.Section>

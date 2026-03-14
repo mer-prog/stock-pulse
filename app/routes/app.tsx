@@ -6,6 +6,8 @@ import { NavMenu } from "@shopify/app-bridge-react";
 import polarisStyles from "@shopify/polaris/build/esm/styles.css?url";
 
 import { authenticate } from "../shopify.server";
+import { I18nProvider } from "../i18n/i18nContext";
+import { AppNavMenu } from "../components/AppNavMenu";
 
 export const links = () => [{ rel: "stylesheet", href: polarisStyles }];
 
@@ -20,13 +22,10 @@ export default function App() {
 
   return (
     <AppProvider isEmbeddedApp apiKey={apiKey}>
-      <NavMenu>
-        <Link to="/app" rel="home">
-          ダッシュボード
-        </Link>
-        <Link to="/app/alerts">アラート設定</Link>
-      </NavMenu>
-      <Outlet />
+      <I18nProvider>
+        <AppNavMenu />
+        <Outlet />
+      </I18nProvider>
     </AppProvider>
   );
 }

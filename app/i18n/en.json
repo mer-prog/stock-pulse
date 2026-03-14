@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "alerts": "Alert Settings"
+  },
+  "dashboard": {
+    "title": "StockPulse Dashboard",
+    "syncButton": "Sync Inventory",
+    "syncSuccess": "Synced {{count}} inventory items."
+  },
+  "inventory": {
+    "totalProducts": "Total Products",
+    "outOfStock": "Out of Stock",
+    "lowStock": "Low Stock",
+    "totalQuantity": "Total Quantity"
+  },
+  "stockChart": {
+    "defaultTitle": "Inventory Trend (Last 30 Days)",
+    "noData": "No data available. Please sync inventory.",
+    "tooltipLabel": "Quantity"
+  },
+  "productStockTable": {
+    "resourceSingular": "product",
+    "resourcePlural": "products",
+    "headingProductId": "Product ID",
+    "headingVariantId": "Variant ID",
+    "headingQuantity": "Quantity",
+    "headingThreshold": "Threshold"
+  },
+  "alerts": {
+    "pageTitle": "Alert Settings",
+    "defaultConfigTitle": "Default Alert Settings (All Products)",
+    "productConfigTitle": "Product Alert Settings",
+    "saveSuccess": "Settings saved.",
+    "thresholdLabel": "Stock Threshold",
+    "thresholdHelpText": "Alert will be sent when stock falls below this number",
+    "alertOnZero": "Alert on out-of-stock",
+    "slackWebhookLabel": "Slack Webhook URL",
+    "enableAlert": "Enable alerts",
+    "save": "Save"
+  },
+  "productDetail": {
+    "title": "Product Detail: {{id}}",
+    "variantResourceSingular": "variant",
+    "variantResourcePlural": "variants",
+    "headingVariantId": "Variant ID",
+    "headingInventoryItemId": "Inventory Item ID",
+    "headingQuantity": "Quantity",
+    "stockChartTitle": "Stock Trend: Product {{id}}"
+  },
+  "login": {
+    "title": "Log in",
+    "shopLabel": "Shop domain",
+    "shopHelpText": "example.myshopify.com",
+    "submit": "Log in"
+  },
+  "language": {
+    "toggle": "JA"
+  }
+}

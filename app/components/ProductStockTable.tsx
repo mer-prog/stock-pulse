@@ -6,6 +6,7 @@ import {
   useIndexResourceState,
   Link,
 } from "@shopify/polaris";
+import { useTranslation } from "../i18n/i18nContext";
 
 interface StockItem {
   productId: string;
@@ -15,9 +16,11 @@ interface StockItem {
 }
 
 export function ProductStockTable({ items }: { items: StockItem[] }) {
+  const { t } = useTranslation();
+
   const resourceName = {
-    singular: "商品",
-    plural: "商品",
+    singular: t("productStockTable.resourceSingular"),
+    plural: t("productStockTable.resourcePlural"),
   };
 
   const { selectedResources, allResourcesSelected, handleSelectionChange } =
@@ -76,10 +79,10 @@ export function ProductStockTable({ items }: { items: StockItem[] }) {
         }
         onSelectionChange={handleSelectionChange}
         headings={[
-          { title: "商品ID" },
-          { title: "バリアントID" },
-          { title: "在庫数" },
-          { title: "閾値" },
+          { title: t("productStockTable.headingProductId") },
+          { title: t("productStockTable.headingVariantId") },
+          { title: t("productStockTable.headingQuantity") },
+          { title: t("productStockTable.headingThreshold") },
         ]}
         selectable={false}
       >

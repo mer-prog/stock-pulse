@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "dashboard": "ダッシュボード",
+    "alerts": "アラート設定"
+  },
+  "dashboard": {
+    "title": "StockPulse ダッシュボード",
+    "syncButton": "在庫を同期",
+    "syncSuccess": "{{count}}件の在庫データを同期しました。"
+  },
+  "inventory": {
+    "totalProducts": "総商品数",
+    "outOfStock": "在庫切れ商品数",
+    "lowStock": "低在庫商品数",
+    "totalQuantity": "在庫総数"
+  },
+  "stockChart": {
+    "defaultTitle": "在庫推移（直近30日）",
+    "noData": "データがありません。在庫を同期してください。",
+    "tooltipLabel": "在庫数"
+  },
+  "productStockTable": {
+    "resourceSingular": "商品",
+    "resourcePlural": "商品",
+    "headingProductId": "商品ID",
+    "headingVariantId": "バリアントID",
+    "headingQuantity": "在庫数",
+    "headingThreshold": "閾値"
+  },
+  "alerts": {
+    "pageTitle": "アラート設定",
+    "defaultConfigTitle": "デフォルトアラート設定（全商品共通）",
+    "productConfigTitle": "商品別アラート設定",
+    "saveSuccess": "設定を保存しました。",
+    "thresholdLabel": "在庫閾値",
+    "thresholdHelpText": "在庫がこの数以下になるとアラートを送信します",
+    "alertOnZero": "在庫切れ時にもアラート",
+    "slackWebhookLabel": "Slack Webhook URL",
+    "enableAlert": "アラートを有効にする",
+    "save": "保存"
+  },
+  "productDetail": {
+    "title": "商品詳細: {{id}}",
+    "variantResourceSingular": "バリアント",
+    "variantResourcePlural": "バリアント",
+    "headingVariantId": "バリアントID",
+    "headingInventoryItemId": "在庫アイテムID",
+    "headingQuantity": "在庫数",
+    "stockChartTitle": "在庫推移: 商品 {{id}}"
+  },
+  "login": {
+    "title": "ログイン",
+    "shopLabel": "ショップドメイン",
+    "shopHelpText": "example.myshopify.com",
+    "submit": "ログイン"
+  },
+  "language": {
+    "toggle": "EN"
+  }
+}

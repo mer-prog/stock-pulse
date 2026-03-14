@@ -10,6 +10,7 @@ import {
   Banner,
 } from "@shopify/polaris";
 import { useFetcher } from "@remix-run/react";
+import { useTranslation } from "../i18n/i18nContext";
 
 interface AlertConfigData {
   id?: string;
@@ -27,6 +28,7 @@ export function AlertConfigForm({
   productId?: string;
 }) {
   const fetcher = useFetcher<{ success: boolean }>();
+  const { t } = useTranslation();
   const [threshold, setThreshold] = useState(String(config.threshold));
   const [alertOnZero, setAlertOnZero] = useState(config.alertOnZero);
   const [slackWebhookUrl, setSlackWebhookUrl] = useState(
@@ -40,25 +42,27 @@ export function AlertConfigForm({
     <LegacyCard sectioned>
       <BlockStack gap="400">
         <Text as="h2" variant="headingMd">
-          {productId ? `商品別アラート設定` : "デフォルトアラート設定（全商品共通）"}
+          {productId
+            ? t("alerts.productConfigTitle")
+            : t("alerts.defaultConfigTitle")}
         </Text>
         {fetcher.data?.success && (
-          <Banner tone="success">設定を保存しました。</Banner>
+          <Banner tone="success">{t("alerts.saveSuccess")}</Banner>
         )}
         <fetcher.Form method="post">
           <input type="hidden" name="productId" value={productId ?? ""} />
           <FormLayout>
             <TextField
-              label="在庫閾値"
+              label={t("alerts.thresholdLabel")}
               type="number"
               value={threshold}
               onChange={setThreshold}
               name="threshold"
-              helpText="在庫がこの数以下になるとアラートを送信します"
+              helpText={t("alerts.thresholdHelpText")}
               autoComplete="off"
             />
             <Checkbox
-              label="在庫切れ時にもアラート"
+              label={t("alerts.alertOnZero")}
               checked={alertOnZero}
               onChange={setAlertOnZero}
               name="alertOnZero"
@@ -69,7 +73,7 @@ export function AlertConfigForm({
               value={alertOnZero ? "true" : "false"}
             />
             <TextField
-              label="Slack Webhook URL"
+              label={t("alerts.slackWebhookLabel")}
               value={slackWebhookUrl}
               onChange={setSlackWebhookUrl}
               name="slackWebhookUrl"
@@ -77,7 +81,7 @@ export function AlertConfigForm({
               autoComplete="off"
             />
             <Checkbox
-              label="アラートを有効にする"
+              label={t("alerts.enableAlert")}
               checked={isActive}
               onChange={setIsActive}
               name="isActive"
@@ -88,7 +92,7 @@ export function AlertConfigForm({
               value={isActive ? "true" : "false"}
             />
             <Button submit variant="primary" loading={isSubmitting}>
-              保存
+              {t("alerts.save")}
             </Button>
           </FormLayout>
         </fetcher.Form>
