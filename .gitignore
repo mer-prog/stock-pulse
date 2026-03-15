@@ -24,3 +24,5 @@ pnpm-lock.yaml
 .shopify/*
 .shopify.lock
 shopify.app.stockpulse.toml
+shopify.app.stockpulse.toml
+shopify.app.stockpulse2.toml
