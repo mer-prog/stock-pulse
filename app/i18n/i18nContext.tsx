@@ -35,18 +35,26 @@ function getNestedValue(obj: unknown, path: string): string | undefined {
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("ja");
 
-  // Read localStorage after hydration to avoid SSR/client mismatch
+  // Read localStorage after hydration to avoid SSR/client mismatch.
+  // Wrapped in try-catch because third-party iframes (Shopify embedded apps)
+  // may block localStorage access, throwing SecurityError.
   useEffect(() => {
-    const saved = localStorage.getItem("stock-pulse-locale") as Locale | null;
-    if (saved === "en" || saved === "ja") {
-      setLocaleState(saved);
+    try {
+      const saved = localStorage.getItem("stock-pulse-locale") as Locale | null;
+      if (saved === "en" || saved === "ja") {
+        setLocaleState(saved);
+      }
+    } catch {
+      // localStorage blocked — fall back to default locale
     }
   }, []);
 
   const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
-    if (typeof window !== "undefined") {
+    try {
       localStorage.setItem("stock-pulse-locale", newLocale);
+    } catch {
+      // localStorage blocked — ignore
     }
   }, []);
 
