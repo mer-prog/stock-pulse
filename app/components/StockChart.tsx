@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -7,7 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { LegacyCard, Text, BlockStack } from "@shopify/polaris";
+import { LegacyCard, Text, BlockStack, SkeletonBodyText } from "@shopify/polaris";
 import { useTranslation } from "../i18n/i18nContext";
 
 interface ChartData {
@@ -24,6 +25,11 @@ export function StockChart({
 }) {
   const { t } = useTranslation();
   const displayTitle = title ?? t("stockChart.defaultTitle");
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <LegacyCard sectioned>
@@ -35,6 +41,10 @@ export function StockChart({
           <Text as="p" tone="subdued">
             {t("stockChart.noData")}
           </Text>
+        ) : !isClient ? (
+          <div style={{ width: "100%", height: 300 }}>
+            <SkeletonBodyText lines={8} />
+          </div>
         ) : (
           <div style={{ width: "100%", height: 300 }}>
             <ResponsiveContainer width="100%" height="100%">

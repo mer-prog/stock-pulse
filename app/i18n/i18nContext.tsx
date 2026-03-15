@@ -3,6 +3,7 @@ import {
   useContext,
   useState,
   useCallback,
+  useEffect,
   type ReactNode,
 } from "react";
 import en from "./en.json";
@@ -32,13 +33,15 @@ function getNestedValue(obj: unknown, path: string): string | undefined {
 }
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("stock-pulse-locale") as Locale | null;
-      if (saved === "en" || saved === "ja") return saved;
+  const [locale, setLocaleState] = useState<Locale>("ja");
+
+  // Read localStorage after hydration to avoid SSR/client mismatch
+  useEffect(() => {
+    const saved = localStorage.getItem("stock-pulse-locale") as Locale | null;
+    if (saved === "en" || saved === "ja") {
+      setLocaleState(saved);
     }
-    return "ja";
-  });
+  }, []);
 
   const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
