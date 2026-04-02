@@ -2,8 +2,6 @@
 
 **Real-time inventory alerts and analytics dashboard for Shopify stores.**
 
-![StockPulse Screenshot](docs/screenshots/stock-pulse-preview.png)
-
 ## Features
 
 - **Inventory Dashboard** — Summary cards showing total products, out-of-stock count, low-stock count, and total inventory
